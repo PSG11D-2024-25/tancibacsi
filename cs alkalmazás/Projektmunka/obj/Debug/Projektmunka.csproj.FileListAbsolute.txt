@@ -1,0 +1,7 @@
+\\psgaddc\infotanar-store\homes\mizererobin161\IKT\cs alkalmazás\tancibacsi\cs alkalmazás\Projektmunka\bin\Debug\Projektmunka.exe.config
+\\psgaddc\infotanar-store\homes\mizererobin161\IKT\cs alkalmazás\tancibacsi\cs alkalmazás\Projektmunka\bin\Debug\Projektmunka.exe
+\\psgaddc\infotanar-store\homes\mizererobin161\IKT\cs alkalmazás\tancibacsi\cs alkalmazás\Projektmunka\bin\Debug\Projektmunka.pdb
+\\psgaddc\infotanar-store\homes\mizererobin161\IKT\cs alkalmazás\tancibacsi\cs alkalmazás\Projektmunka\obj\Debug\Projektmunka.csproj.AssemblyReference.cache
+\\psgaddc\infotanar-store\homes\mizererobin161\IKT\cs alkalmazás\tancibacsi\cs alkalmazás\Projektmunka\obj\Debug\Projektmunka.csproj.CoreCompileInputs.cache
+\\psgaddc\infotanar-store\homes\mizererobin161\IKT\cs alkalmazás\tancibacsi\cs alkalmazás\Projektmunka\obj\Debug\Projektmunka.exe
+\\psgaddc\infotanar-store\homes\mizererobin161\IKT\cs alkalmazás\tancibacsi\cs alkalmazás\Projektmunka\obj\Debug\Projektmunka.pdb

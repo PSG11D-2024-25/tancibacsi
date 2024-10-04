@@ -18,46 +18,91 @@ namespace Projektmunka
 
             bool menu = true; // Menü aktív?
 
+            void Reset()
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            void Aktiv()
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Gray;
+            }
+
+            byte aktualis = 1;
+            bool loginaktiv = true;
+            bool regaktiv = false;
+            bool settactive = false;
+            bool exitactive = false;
+            
+
             while (menu)
             {
-                Console.Write("\n\n" +
-                    " 1 - Bejelentkezés" + "\n" +
-                    " 2 - Regisztráció" + "\n" +
-                    " 3 - Beállítások" + "\n" +
-                    " 4 - Kilépés" +"\n\n" +
-                    
-                    
-                        " Választás: ");
+                switch (aktualis)
+                {
+                    case 1:
+                        loginaktiv = true;
+                        regaktiv = false;
+                        settactive = false;
+                        exitactive = false;
+                        break;
+                    case 2:
+                        loginaktiv = false;
+                        regaktiv   = true;
+                        settactive = false;
+                        exitactive = false;
+                        break;
+                    case 3:
+                        loginaktiv = false;
+                        regaktiv = false;
+                        settactive = true;
+                        exitactive = false;
+                        break;
+                    case 4:
+                        loginaktiv = false;
+                        regaktiv = false;
+                        settactive = false;
+                        exitactive = true;
+                        break;
+                    default:
+                        break;
+                }
 
-                string menuinput = Console.ReadLine();
+                if (loginaktiv) {Aktiv();}
+                else { Reset(); }
+                Console.WriteLine("Bejelentkezés");
 
-                if (menuinput=="1")
+                if (loginaktiv) { Aktiv(); }
+                else { Reset(); }
+                Console.WriteLine("Regisztráció");
+
+                if (loginaktiv) { Aktiv(); }
+                else { Reset(); }
+                Console.WriteLine("Beállítások");
+
+                if (loginaktiv) { Aktiv(); }
+                else { Reset(); }
+                Console.WriteLine("Bezárás");
+
+                ConsoleKey gomb = Console.ReadKey().Key;
+
+                if (gomb == ConsoleKey.UpArrow)
                 {
-                    menu = false;
-                    Console.WriteLine("bejelentkezés lesz majd...");
-                    Console.Read();
+                    if (aktualis > 1)
+                    {
+                        aktualis--;
+                    }
                 }
-                else if (menuinput== "2")
+                else if (gomb == ConsoleKey.DownArrow)
                 {
-                    menu = false;
-                    Console.WriteLine("reg lesz majd...");
-                    Console.Read();
+                    if (aktualis<4)
+                    {
+                        aktualis++;
+                    }
                 }
-                else if (menuinput == "3")
+                else if (gomb == ConsoleKey.Enter)
                 {
-                    menu = false;
-                    Console.WriteLine("opcio lesz majd...");
-                    Console.Read();
-                }
-                else if (menuinput == "4")
-                {
-                    menu = false;
-                    break;
-                    //ez csak kilép
-                }
-                else
-                {
-                    Console.WriteLine("nincs ilyen opció");
+
                 }
             }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -104,10 +105,27 @@ namespace Projektmunka
 
         static void Main(string[] args)
         {
+            Console.Title = "Egyszerű alkalmazás";
+            bool nightmodeOn = true;
             #region Fejléc
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("\t\tKészítette: Mizere Robin Roland v0.1");
             Console.ForegroundColor = ConsoleColor.White;
+            #endregion
+
+            #region Módváltás
+            void Dark()
+            {
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+                
+            }
+            void Light()
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.White;
+                
+            }
             #endregion
 
             #region Menü 
@@ -115,9 +133,17 @@ namespace Projektmunka
             void Menu() { 
             void Reset()
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = ConsoleColor.Black;
-            }
+                    if (nightmodeOn)
+                    {
+                        nightmodeOn = !nightmodeOn;
+                        Light();
+                    }
+                    else
+                    {
+                        nightmodeOn = !nightmodeOn;
+                        Dark();
+                    }
+                }
             void Aktiv()
             {
                 Console.ForegroundColor = ConsoleColor.Black;
@@ -133,6 +159,7 @@ namespace Projektmunka
 
                 while (menu)
                 {
+                    Reset();
                     switch (aktualis)
                     {
                         case 1:
@@ -187,6 +214,8 @@ namespace Projektmunka
                         {
                             aktualis--;
                         }
+                        Console.Clear();
+                        Reset();
                     }
                     else if (gomb == ConsoleKey.DownArrow)
                     {
@@ -194,37 +223,62 @@ namespace Projektmunka
                         {
                             aktualis++;
                         }
+                        Console.Clear();
+                        Reset();
                     }
                     else if (gomb == ConsoleKey.Enter)
                     {
+                        switch (aktualis)
+                        {
+                            case 1:
+                                Console.Clear();
+                                Login();
+                                break;
+                            case 2:
+                                Console.Clear();
+                                Register();
+                                break;
+                            case 3:
+                                Console.Clear();
+                                Settings();
+                                break;
+                            case 4:
+                                Console.Clear();
+                                Exit();
+                                break;
+                            default:
+                                throw new Exception("Valami nem jó");
 
+                        }
                     }
+                    else { Console.Clear(); }
                     
                 }
             }
             #endregion
 
             Menu();
+            string ReadPassword()
+            {
+                string rpassword = "";
+                ConsoleKeyInfo keyInfo;
 
+                do
+                {
+                    keyInfo = Console.ReadKey(true); // true: ne jelenítse meg a konzolon a beírt karaktereket
+                    Console.Write('*');
+                    if (keyInfo.Key != ConsoleKey.Enter)
+                    {
+                        rpassword += keyInfo.KeyChar; // Tároljuk a beírt karaktereket
+                    }
+                } while (keyInfo.Key != ConsoleKey.Enter); // Amíg az Enter nincs lenyomva
+
+                return rpassword;
+            }
+            
             void Login()
             {
-                string ReadPassword()
-                {
-                    string rpassword = "";
-                    ConsoleKeyInfo keyInfo;
-
-                    do
-                    {
-                        keyInfo = Console.ReadKey(true); // true: ne jelenítse meg a konzolon a beírt karaktereket
-
-                        if (keyInfo.Key != ConsoleKey.Enter)
-                        {
-                            rpassword += keyInfo.KeyChar; // Tároljuk a beírt karaktereket
-                        }
-                    } while (keyInfo.Key != ConsoleKey.Enter); // Amíg az Enter nincs lenyomva
-
-                    return rpassword;
-                }
+                
 
                 Console.WriteLine("Kérlek add meg a Felhasználóneved!");
                 string fnev = Console.ReadLine();
@@ -234,6 +288,74 @@ namespace Projektmunka
                 string password = ReadPassword();
             }
 
+            void Register()
+            {
+                bool success = false;
+                string username = null;
+                while (!success)
+                {
+                    Console.Write("\nFelhasználónév: ");
+                    username = Console.ReadLine();
+                    bool exist = false;
+                    foreach (User user in User.Users)
+                    {
+                        if (user.Name == username)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.Error.WriteLine("Már létezik ilyen felhasználó");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            exist = true;
+                        }
+                    }
+                    if (!exist)
+                    {
+                        break;
+                    }
+
+                }
+
+                Console.Write("\nJelszó: ");
+                string password = ReadPassword();
+
+                User.AddNewUser(username, password);
+            }
+
+            void Settings()
+            {
+                Console.WriteLine("Nappali / Éjszakai mód váltása: ENTER\nKilépés: X");
+                ConsoleKey key = Console.ReadKey().Key;
+
+                
+
+                switch (key)
+                {
+                    
+                    case ConsoleKey.Enter:
+                        if (nightmodeOn)
+                        {
+                            nightmodeOn = !nightmodeOn;
+                            Light();
+                        }
+                        else 
+                        {
+                            nightmodeOn = !nightmodeOn;
+                            Dark();
+                        }
+                        break;
+                    
+                    case ConsoleKey.X:
+                        return;
+                        
+                    
+                    default:
+                        return;
+                }
+            }
+
+            void Exit()
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }

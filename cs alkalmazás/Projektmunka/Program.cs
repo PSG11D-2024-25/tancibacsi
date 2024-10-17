@@ -31,7 +31,7 @@ namespace Projektmunka
         }
         public string PassWord
         {
-            
+
             get { return password; }
             protected set
             {
@@ -51,7 +51,8 @@ namespace Projektmunka
             }
         }
 
-        public int Id {
+        public int Id
+        {
             get { return id; }
         }
 
@@ -98,7 +99,7 @@ namespace Projektmunka
                 }
             }
             catch { Console.Error.WriteLine("Error during read file"); }
-            finally { if (sr!= null ) sr.Close(); }
+            finally { if (sr != null) sr.Close(); }
         }
 
 
@@ -118,43 +119,43 @@ namespace Projektmunka
             {
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.White;
-                
+
             }
             void Light()
             {
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.White;
-                
+
             }
             #endregion
 
             #region Menü 
             bool menu = true; // Menü aktív?
-            void Menu() { 
-            void Reset()
+            void Menu()
             {
+
+                void Reset()
+                {
                     if (nightmodeOn)
                     {
-                        nightmodeOn = !nightmodeOn;
                         Light();
                     }
                     else
                     {
-                        nightmodeOn = !nightmodeOn;
                         Dark();
                     }
                 }
-            void Aktiv()
-            {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.Gray;
-            }
+                void Aktiv()
+                {
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.BackgroundColor = ConsoleColor.Magenta;
+                }
 
-            byte aktualis = 1;
-            bool loginaktiv = true;
-            bool regaktiv = false;
-            bool settactive = false;
-            bool exitactive = false;
+                byte aktualis = 1;
+                bool loginaktiv = true;
+                bool regaktiv = false;
+                bool settactive = false;
+                bool exitactive = false;
 
 
                 while (menu)
@@ -193,18 +194,22 @@ namespace Projektmunka
                     if (loginaktiv) { Aktiv(); }
                     else { Reset(); }
                     Console.WriteLine("Bejelentkezés");
+                    Reset();
 
-                    if (loginaktiv) { Aktiv(); }
+                    if (regaktiv) { Aktiv(); }
                     else { Reset(); }
                     Console.WriteLine("Regisztráció");
+                    Reset();
 
-                    if (loginaktiv) { Aktiv(); }
+                    if (settactive) { Aktiv(); }
                     else { Reset(); }
                     Console.WriteLine("Beállítások");
+                    Reset();
 
-                    if (loginaktiv) { Aktiv(); }
+                    if (exitactive) { Aktiv(); }
                     else { Reset(); }
                     Console.WriteLine("Bezárás");
+                    Reset();
 
                     ConsoleKey gomb = Console.ReadKey().Key;
 
@@ -252,7 +257,7 @@ namespace Projektmunka
                         }
                     }
                     else { Console.Clear(); }
-                    
+
                 }
             }
             #endregion
@@ -275,16 +280,16 @@ namespace Projektmunka
 
                 return rpassword;
             }
-            
+
             void Login()
             {
-                
+
 
                 Console.WriteLine("Kérlek add meg a Felhasználóneved!");
                 string fnev = Console.ReadLine();
 
                 Console.WriteLine("Kérlek add meg a Jelszavadat!");
-                    
+
                 string password = ReadPassword();
             }
 
@@ -297,7 +302,7 @@ namespace Projektmunka
                     Console.Write("\nFelhasználónév: ");
                     username = Console.ReadLine();
                     bool exist = false;
-                    foreach (User user in User.Users)
+                    foreach (User user in lUser.Users)
                     {
                         if (user.Name == username)
                         {
@@ -325,28 +330,28 @@ namespace Projektmunka
                 Console.WriteLine("Nappali / Éjszakai mód váltása: ENTER\nKilépés: X");
                 ConsoleKey key = Console.ReadKey().Key;
 
-                
+
 
                 switch (key)
                 {
-                    
+
                     case ConsoleKey.Enter:
                         if (nightmodeOn)
                         {
                             nightmodeOn = !nightmodeOn;
                             Light();
                         }
-                        else 
+                        else
                         {
                             nightmodeOn = !nightmodeOn;
                             Dark();
                         }
                         break;
-                    
+
                     case ConsoleKey.X:
                         return;
-                        
-                    
+
+
                     default:
                         return;
                 }

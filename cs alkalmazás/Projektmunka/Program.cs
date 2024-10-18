@@ -102,6 +102,31 @@ namespace Projektmunka
             finally { if (sr != null) sr.Close(); }
         }
 
+        void Kiir(string mit)
+        {
+            StreamWriter sw = null;
+
+            try
+            {
+                sw = new StreamWriter("info.txt");
+                sw.WriteLine(mit);
+            }
+            catch (Exception)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+
+                Console.Error.WriteLine("Sikertelen írási kísérlet!");
+
+
+            }
+            finally
+            {
+                if (!(sw is null))
+                {
+                    sw.Close();
+                }
+            }
+        }
 
 
         static void Main(string[] args)
@@ -302,7 +327,7 @@ namespace Projektmunka
                     Console.Write("\nFelhasználónév: ");
                     username = Console.ReadLine();
                     bool exist = false;
-                    foreach (User user in lUser.Users)
+                    foreach (User user in User.Users)
                     {
                         if (user.Name == username)
                         {

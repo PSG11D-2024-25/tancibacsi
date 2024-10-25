@@ -56,7 +56,7 @@ namespace Projektmunka
             get { return id; }
         }
 
-        public static List<User> Users { get { return users; } }
+        public static List<User> Users { get { return users; } set { users = value; } }
 
 
         public User(string name, string pass)
@@ -75,6 +75,7 @@ namespace Projektmunka
         {
             User user = new User(uname, upass);
             users.Add(user);
+            Program.Kiir(user.Name + ';' + user.PassWord + ';' + user.Id);
         }
         public static void AddExistingUser(string uname, string upass, int id)
         {
@@ -102,7 +103,7 @@ namespace Projektmunka
             finally { if (sr != null) sr.Close(); }
         }
 
-        void Kiir(string mit)
+        public static void Kiir(string mit)
         {
             StreamWriter sw = null;
 
@@ -131,7 +132,7 @@ namespace Projektmunka
 
         static void Main(string[] args)
         {
-            Console.Title = "Egyszerű alkalmazás";
+            Console.Title = "Egyszerű alklmazás";
             bool nightmodeOn = true;
             #region Fejléc
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -348,6 +349,7 @@ namespace Projektmunka
                 string password = ReadPassword();
 
                 User.AddNewUser(username, password);
+                
             }
 
             void Settings()
